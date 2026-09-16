@@ -1,0 +1,135 @@
+.orbits-track {
+  height: 220vh;
+  position: relative;
+}
+
+.orbits-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg);
+  text-align: center;
+}
+
+.orbits-eyebrow {
+  font: 600 0.68rem var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 0.6rem;
+}
+
+.orbits-heading {
+  font: 600 clamp(2.1rem, 4.6vw, 3.6rem) / 1.05 var(--serif);
+  color: var(--ink);
+  margin: 0 0 4rem;
+  transition: none;
+  will-change: transform, opacity;
+}
+.orbits-heading em {
+  color: var(--lime);
+  font-style: italic;
+}
+
+.orbits-field {
+  position: relative;
+  width: min(920px, 90vw);
+  height: clamp(180px, 26vw, 260px);
+}
+
+.orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  will-change: transform, opacity;
+  margin-left: calc(clamp(88px, 11vw, 120px) * -0.5);
+  margin-top: calc(clamp(88px, 11vw, 120px) * -0.5);
+}
+
+.orbit__float {
+  display: block;
+  width: clamp(88px, 11vw, 120px);
+  height: clamp(88px, 11vw, 120px);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--line);
+  box-shadow: 0 20px 45px -18px #000c;
+  animation: orbit-bob 6s ease-in-out infinite;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.orbit:hover .orbit__float {
+  border-color: var(--lime);
+  box-shadow: 0 20px 50px -14px rgba(201, 253, 80, 0.35);
+}
+.orbit--github .orbit__float {
+  animation-delay: 0s;
+}
+.orbit--kaggle .orbit__float {
+  animation-delay: -2s;
+}
+.orbit--linkedin .orbit__float {
+  animation-delay: -4s;
+}
+
+.orbit__float img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.orbit__label {
+  font: 600 0.72rem var(--mono);
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.orbit__label em {
+  font-style: normal;
+  font: 500 0.62rem var(--mono);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+@keyframes orbit-bob {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -10px;
+  }
+}
+
+@media (max-width: 720px) {
+  .orbits-field {
+    width: 100%;
+    height: 320px;
+  }
+  .orbit {
+    margin-left: calc(72px * -0.5);
+    margin-top: calc(72px * -0.5);
+  }
+  .orbit__float {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit__float {
+    animation: none;
+  }
+}

@@ -1,0 +1,11 @@
+.cert-scroll{position:relative;background:#070b0d;margin-top:10rem;padding:9vh 5vw 10vh}
+.cert-head{max-width:900px;margin:0 auto 3rem;text-align:center}
+.cert-head h2{font:600 clamp(2.6rem,7vw,6rem)/.9 var(--serif);letter-spacing:-.03em;margin:1rem 0 .8rem}
+.cert-hint{font:.75rem var(--mono);color:#c9fd50;letter-spacing:.08em}
+.certs-dome{position:relative;width:100%;margin:0 auto}
+@media(max-width:650px){.cert-scroll{padding:8vh 5vw 8vh}}
+
+.gallery-accordion-mount{width:100%;margin-top:2.4rem}
+.gallery-cta{display:inline-block;margin-top:1.8rem;font:.78rem var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:inherit;border-bottom:1px solid currentColor;padding-bottom:.2rem;transition:opacity .2s ease}
+.gallery-cta:hover{opacity:.65}
+@media(max-width:650px){.gallery-accordion-mount .accordion-gallery{height:auto!important}}
