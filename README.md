@@ -8,7 +8,7 @@ actually run on real hardware, not just in a notebook.
 This repo is my personal portfolio site — a place to show the certifications I've
 earned, the projects I've shipped, and a bit of the journey behind them.
 
-**Live site:** [your-domain.vercel.app](https://omar-portfolio-pied.vercel.app/) <!-- update after deploying -->
+**Live site:** [omar-portfolio.vercel.app](https://omar-portfolio-pied.vercel.app/) 
 
 ## What's on it
 
@@ -21,8 +21,8 @@ earned, the projects I've shipped, and a bit of the journey behind them.
 ## Running it locally
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/Omaryone1w1/omar-portfolio.git
+cd omar-portfolio
 npm install
 npm run dev
 ```
