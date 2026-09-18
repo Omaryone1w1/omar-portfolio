@@ -8,7 +8,7 @@ actually run on real hardware, not just in a notebook.
 This repo is my personal portfolio site — a place to show the certifications I've
 earned, the projects I've shipped, and a bit of the journey behind them.
 
-**Live site:** [your-domain.vercel.app](https://your-domain.vercel.app) <!-- update after deploying -->
+**Live site:** [your-domain.vercel.app](https://omar-portfolio-pied.vercel.app/) <!-- update after deploying -->
 
 ## What's on it
 
