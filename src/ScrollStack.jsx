@@ -185,6 +185,18 @@ const ScrollStack = ({
 
   const setupLenis = useCallback(() => {
     if (useWindowScroll) {
+      // The page already runs one Lenis instance on the window (see script.js).
+      // Spinning up a second one here made two smooth-scroll engines fight over
+      // the same scroll position every frame, which is what caused the severe
+      // jitter/ghosting on this section. Reuse the existing instance instead.
+      const existing = typeof window !== 'undefined' ? window.lenis : null;
+      if (existing) {
+        existing.on('scroll', handleScroll);
+        existing.__reusedByScrollStack = true;
+        lenisRef.current = existing;
+        return existing;
+      }
+
       const lenis = new Lenis({
         duration: 1.2,
         easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -277,7 +289,11 @@ const ScrollStack = ({
         cancelAnimationFrame(animationFrameRef.current);
       }
       if (lenisRef.current) {
-        lenisRef.current.destroy();
+        if (lenisRef.current.__reusedByScrollStack) {
+          lenisRef.current.off('scroll', handleScroll);
+        } else {
+          lenisRef.current.destroy();
+        }
       }
       stackCompletedRef.current = false;
       cardsRef.current = [];

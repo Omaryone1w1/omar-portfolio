@@ -38,8 +38,8 @@
 
 .orbits-field {
   position: relative;
-  width: min(920px, 90vw);
-  height: clamp(180px, 26vw, 260px);
+  width: min(1000px, 92vw);
+  height: clamp(220px, 30vw, 320px);
 }
 
 .orbit {
@@ -49,27 +49,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1rem;
   text-decoration: none;
   will-change: transform, opacity;
-  margin-left: calc(clamp(88px, 11vw, 120px) * -0.5);
-  margin-top: calc(clamp(88px, 11vw, 120px) * -0.5);
+  margin-left: calc(clamp(128px, 15vw, 176px) * -0.5);
+  margin-top: calc(clamp(128px, 15vw, 176px) * -0.5);
 }
 
 .orbit__float {
   display: block;
-  width: clamp(88px, 11vw, 120px);
-  height: clamp(88px, 11vw, 120px);
+  width: clamp(128px, 15vw, 176px);
+  height: clamp(128px, 15vw, 176px);
   border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--line);
-  box-shadow: 0 20px 45px -18px #000c;
+  padding: 6px;
+  background: linear-gradient(150deg, rgba(201, 253, 80, 0.55), rgba(242, 243, 242, 0.12) 45%, rgba(201, 253, 80, 0.2));
+  box-shadow: 0 24px 55px -18px #000d, 0 0 0 1px rgba(242, 243, 242, 0.08);
   animation: orbit-bob 6s ease-in-out infinite;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.orbit__float img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
 }
 .orbit:hover .orbit__float {
-  border-color: var(--lime);
-  box-shadow: 0 20px 50px -14px rgba(201, 253, 80, 0.35);
+  box-shadow: 0 26px 60px -14px rgba(201, 253, 80, 0.4), 0 0 0 1px rgba(201, 253, 80, 0.5);
+  transform: scale(1.035);
 }
 .orbit--github .orbit__float {
   animation-delay: 0s;
@@ -79,13 +87,6 @@
 }
 .orbit--linkedin .orbit__float {
   animation-delay: -4s;
-}
-
-.orbit__float img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
 .orbit__label {
@@ -116,15 +117,15 @@
 @media (max-width: 720px) {
   .orbits-field {
     width: 100%;
-    height: 320px;
+    height: 380px;
   }
   .orbit {
-    margin-left: calc(72px * -0.5);
-    margin-top: calc(72px * -0.5);
+    margin-left: calc(96px * -0.5);
+    margin-top: calc(96px * -0.5);
   }
   .orbit__float {
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
   }
 }
 

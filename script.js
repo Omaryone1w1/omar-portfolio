@@ -56,44 +56,6 @@ document.querySelectorAll('.count-up').forEach(el=>{
   });
 });
 
-// Cursor-following preview thumbnail for the project list.
-// Only shows for projects that actually have a real photo — a plain color
-// swatch for projects without one is more confusing than helpful.
-if(!reduceMotion && matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const preview=document.createElement('div');
-  preview.className='project-preview';
-  document.body.appendChild(preview);
-  let px=0,py=0,tx=0,ty=0,active=false;
-  function raf(){
-    px+=(tx-px)*0.18;py+=(ty-py)*0.18;
-    preview.style.left=(px+28)+'px';preview.style.top=(py-140)+'px';
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-  document.querySelectorAll('.project').forEach((item,i)=>{
-    const photo=item.querySelector('.project-photo');
-    if(!photo)return; // no real image yet — skip the preview rather than fake it
-    const label=item.querySelector('h3')?.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').trim()||`Project ${i+1}`;
-    item.addEventListener('mouseenter',e=>{
-      active=true;
-      preview.innerHTML=`<img src="${photo.src}" alt="" /><span>${String(i+1).padStart(2,'0')} · ${label}</span>`;
-      tx=e.clientX;ty=e.clientY;px=tx;py=ty;
-      gsap.to(preview,{opacity:1,scale:1,duration:.35,ease:'power3.out'});
-    });
-    item.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
-    item.addEventListener('mouseleave',()=>{
-      active=false;
-      gsap.to(preview,{opacity:0,scale:.85,duration:.25,ease:'power2.in'});
-    });
-  });
-  function hidePreview(){
-    if(!active)return;
-    active=false;
-    gsap.to(preview,{opacity:0,scale:.85,duration:.2,ease:'power2.in'});
-  }
-  addEventListener('scroll',hidePreview,{passive:true});
-  if(lenis)lenis.on('scroll',hidePreview);
-}
 function safeRefresh(){ if(window.scrollY<80) ScrollTrigger.refresh(); }
 window.addEventListener('load',safeRefresh);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(safeRefresh);

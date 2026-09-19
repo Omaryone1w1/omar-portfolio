@@ -59,3 +59,19 @@
   padding: 4rem 0 8rem;
   min-height: 0;
 }
+
+@media (max-width: 720px) {
+  .scroll-stack-inner {
+    padding: 10vh 1.1rem 16rem;
+  }
+  .scroll-stack-card {
+    height: auto;
+    min-height: 14rem;
+    padding: 1.6rem 1.5rem;
+    border-radius: 22px;
+    margin: 16px 0;
+  }
+  .scroll-stack-scroller--window .scroll-stack-inner {
+    padding: 2.5rem 0 5rem;
+  }
+}

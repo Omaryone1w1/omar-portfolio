@@ -99,7 +99,9 @@
 }
 
 .cert-lightbox {
-  position: relative;
+  position: fixed;
+  inset: 0;
+  margin: auto;
 }
 .cert-lightbox img {
   border-radius: 6px;

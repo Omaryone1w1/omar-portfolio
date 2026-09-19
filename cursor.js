@@ -77,6 +77,35 @@ export function initCursor() {
     }
   });
 
+  // Native <dialog> content (the certificate lightbox) renders in the
+  // browser's top layer, which always sits above anything in the normal
+  // document — including this custom cursor, no matter its z-index. Since
+  // the real cursor is hidden site-wide (`cursor:none`), that made the
+  // pointer visually vanish — and feel frozen — while a certificate was
+  // open. Fix: fall back to the native cursor whenever any <dialog> is open.
+  function syncCursorForDialogs() {
+    const dialogOpen = !!document.querySelector('dialog[open]');
+    document.body.classList.toggle('has-cursor', !dialogOpen);
+    dot.style.opacity = dialogOpen ? '0' : '1';
+    ring.style.opacity = dialogOpen ? '0' : '1';
+  }
+  const dialogAttrObserver = new MutationObserver(syncCursorForDialogs);
+  function watchDialog(el) {
+    dialogAttrObserver.observe(el, { attributes: true, attributeFilter: ['open'] });
+  }
+  document.querySelectorAll('dialog').forEach(watchDialog);
+  // The certificate dialog is rendered by React after this script runs, so
+  // keep watching for any dialog added to the page later too.
+  new MutationObserver(mutations => {
+    for (const m of mutations) {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType !== 1) return;
+        if (node.matches?.('dialog')) watchDialog(node);
+        node.querySelectorAll?.('dialog').forEach(watchDialog);
+      });
+    }
+  }).observe(document.body, { childList: true, subtree: true });
+
   return { dot, ring };
 }
 

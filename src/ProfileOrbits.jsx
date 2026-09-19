@@ -9,7 +9,8 @@ const PROFILES = [
     href: 'https://github.com/Omaryone1w1',
     img: '/avatars/github.jpg',
     cluster: { x: -18, y: -6 },
-    spread: { x: -300, y: 10 }
+    spreadDir: -1,
+    spreadY: 10
   },
   {
     key: 'kaggle',
@@ -18,7 +19,8 @@ const PROFILES = [
     href: 'https://www.kaggle.com/omarmohamed1w1',
     img: '/avatars/kaggle.jpg',
     cluster: { x: 0, y: 12 },
-    spread: { x: 0, y: -30 }
+    spreadDir: 0,
+    spreadY: -30
   },
   {
     key: 'linkedin',
@@ -27,7 +29,8 @@ const PROFILES = [
     href: 'https://www.linkedin.com/in/omar-mohamed-fathallah-59912b335/',
     img: '/avatars/linkedin.jpg',
     cluster: { x: 18, y: -6 },
-    spread: { x: 300, y: 10 }
+    spreadDir: 1,
+    spreadY: 10
   }
 ];
 
@@ -44,6 +47,7 @@ function easeOutCubic(t) {
 export default function ProfileOrbits() {
   const stageRef = useRef(null);
   const trackRef = useRef(null);
+  const fieldRef = useRef(null);
   const orbRefs = useRef([]);
   const headingRef = useRef(null);
   const rafRef = useRef(null);
@@ -61,11 +65,16 @@ export default function ProfileOrbits() {
       const raw = total > 0 ? -rect.top / total : 0;
       const progress = easeOutCubic(clamp01(raw));
 
+      const fieldWidth = fieldRef.current ? fieldRef.current.clientWidth : window.innerWidth;
+      const firstFloat = orbRefs.current[0]?.querySelector('.orbit__float');
+      const orbitSize = firstFloat ? firstFloat.offsetWidth : 140;
+      const maxSpread = Math.min(300, Math.max(20, fieldWidth / 2 - orbitSize / 2 - 6));
+
       orbRefs.current.forEach((el, i) => {
         if (!el) return;
         const p = PROFILES[i];
-        const x = lerp(p.cluster.x, p.spread.x, progress);
-        const y = lerp(p.cluster.y, p.spread.y, progress);
+        const x = lerp(p.cluster.x, p.spreadDir * maxSpread, progress);
+        const y = lerp(p.cluster.y, p.spreadY, progress);
         const scale = lerp(0.55, 1, progress);
         el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
         el.style.opacity = String(lerp(0.75, 1, progress));
@@ -102,7 +111,7 @@ export default function ProfileOrbits() {
           <br />
           <em>three profiles.</em>
         </h2>
-        <div className="orbits-field">
+        <div className="orbits-field" ref={fieldRef}>
           {PROFILES.map((p, i) => (
             <a
               key={p.key}
